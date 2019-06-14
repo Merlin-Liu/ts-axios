@@ -10,6 +10,14 @@ export interface AxiosRequestConfig {
   timeout?: number
 }
 
+export interface AxiosError extends Error {
+  config: AxiosRequestConfig
+  code?: number
+  request?: any
+  response?: any
+  isAxiosError: boolean
+}
+
 export type Method =
   | 'get'
   | 'GET'
