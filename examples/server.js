@@ -106,6 +106,14 @@ router.get('/error/timeout', function (req, res) {
 router.post('/extend/post', function (req, res) {
   res.json(req.body)
 })
+router.get('/extend/user', function (req, res) {
+  res.json({
+    result: {
+      name: 'liu',
+      age: 12,
+    }
+  })
+})
 
 app.use(router)
 
