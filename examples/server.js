@@ -101,6 +101,12 @@ router.get('/error/timeout', function (req, res) {
   }, 3000)
 })
 
+
+// extend
+router.post('/extend/post', function (req, res) {
+  res.json(req.body)
+})
+
 app.use(router)
 
 const port = process.env.PORT || 8081

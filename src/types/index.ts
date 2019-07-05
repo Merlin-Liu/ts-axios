@@ -18,6 +18,8 @@ export interface Axios {
 
 export interface AxiosInstence extends Axios {
   (config: AxiosRequestConfig): AxiosPromise
+
+  (url: string, config?: AxiosRequestConfig): AxiosPromise
 }
 
 export interface AxiosRequestConfig {
