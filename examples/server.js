@@ -93,7 +93,7 @@ router.get('/error/get', function (req, res) {
   }
 })
 
-router.get('/error/timeout', function (req, res) {
+router.get('/error/timeout', function (req, res) {w
   setTimeout(() => {
     res.json({
       msg: `hello world`
@@ -118,6 +118,11 @@ router.get('/extend/user', function (req, res) {
 // interceptor
 router.get('/interceptor/get', function (req, res) {
   res.json('data-')
+})
+
+// config
+router.post('/config/post', function(req, res) {
+  res.json(req.body)
 })
 
 app.use(router)
