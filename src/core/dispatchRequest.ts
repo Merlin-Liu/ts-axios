@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
+import { AxiosRequestConfig, AxiosPromise, AxiosResponse, AxiosTransFormer } from '../types'
 import { buildUrl } from '../helpers/url'
 import { transformRequest, transformResponse } from '../helpers/data'
 import { processHeaders, flattenHeaders } from '../helpers/headers'
@@ -16,6 +16,7 @@ function processConfig(config: AxiosRequestConfig): void {
   config.url = transformUrl(config)
   // config.headers = transformHeaders(config)
   // config.data = transformRequestData(config)
+  mergeDefaultTransform(config)
   if (!config.headers) {
     config.headers = {}
   }
@@ -35,6 +36,37 @@ function transformRequestData(config: AxiosRequestConfig): any {
 function transformHeaders(config: AxiosRequestConfig): any {
   const { headers = {}, data } = config
   return processHeaders(headers, data)
+}
+
+function mergeDefaultTransform(config: AxiosRequestConfig): void {
+  let { transformRequest: newTransformRequest, transformResponse: newTransformResponse } = config
+
+  let transformRequestFns: AxiosTransFormer[] = [
+    function(data: any, headers: any): any {
+      processHeaders(headers, data)
+      return transformRequest(data)
+    }
+  ]
+  const index = transformRequestFns.length - 1
+  if (Array.isArray(newTransformRequest)) {
+    Array.prototype.splice.apply(transformRequestFns, [index, 0, ...newTransformRequest])
+  } else if (typeof newTransformRequest === 'function') {
+    transformRequestFns.splice(index, 0, newTransformRequest)
+  }
+
+  let transformResponseFns: AxiosTransFormer[] = [
+    function(data: any): any {
+      return transformResponse(data)
+    }
+  ]
+  if (Array.isArray(newTransformResponse)) {
+    transformResponseFns = transformResponseFns.concat(newTransformResponse)
+  } else if (typeof newTransformResponse === 'function') {
+    transformResponseFns.push(newTransformResponse)
+  }
+
+  config.transformRequest = transformRequestFns
+  config.transformResponse = transformResponseFns
 }
 
 function transformResponseData(res: AxiosResponse): AxiosResponse {

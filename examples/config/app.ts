@@ -18,16 +18,40 @@ import axios from '../../src/index'
 // }).catch()
 
 
-axios({
-  transformRequest: [(function(data) {
+// axios({
+//   transformRequest: [(function(data) {
+//     return qs.stringify(data)
+//   })],
+//   transformResponse: [function(data) {
+//     if (typeof data === 'object') {
+//       data.b = 2
+//     }
+//     return data
+//   }],
+//   url: '/config/post',
+//   method: 'post',
+//   data: {
+//     a: 1
+//   }
+// }).then((res) => {
+//   console.log(res.data)
+// }).catch()
+
+const instance = axios.create({
+  transformRequest: function(data) {
+    console.log(1111)
     return qs.stringify(data)
-  }), ...(axios.defaults.transformRequest as AxiosTransFormer[])],
-  transformResponse: [...(axios.defaults.transformResponse as AxiosTransFormer[]), function(data) {
+  },
+  transformResponse: [ function(data) {
+    console.log(2222)
     if (typeof data === 'object') {
       data.b = 2
     }
     return data
-  }],
+  }]
+})
+
+instance({
   url: '/config/post',
   method: 'post',
   data: {
@@ -36,4 +60,3 @@ axios({
 }).then((res) => {
   console.log(res.data)
 }).catch()
-
