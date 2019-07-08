@@ -1,3 +1,5 @@
+import { transformRequest, transformResponse } from '../helpers/data'
+
 export interface Axios {
   defaults: AxiosRequestConfig
   interceptors: {
@@ -36,6 +38,8 @@ export interface AxiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number
+  transformRequest?: AxiosTransFormer | AxiosTransFormer[]
+  transformResponse?: AxiosTransFormer | AxiosTransFormer[]
   [propName: string]: any
 }
 
@@ -86,4 +90,8 @@ export interface ResolvedFn<T = any> {
 
 export interface RejectedFn {
   (error: any): any
+}
+
+export interface AxiosTransFormer {
+  (data: any, header?: any): any
 }

@@ -122,7 +122,9 @@ router.get('/interceptor/get', function (req, res) {
 
 // config
 router.post('/config/post', function(req, res) {
-  res.json(req.body)
+  res.json({
+    a: 1
+  })
 })
 
 app.use(router)
