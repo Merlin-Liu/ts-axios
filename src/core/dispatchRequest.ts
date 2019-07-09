@@ -5,7 +5,8 @@ import { processHeaders, flattenHeaders } from '../helpers/headers'
 import transform from './transform'
 import xhr from '../xhr'
 
-function axios(config: AxiosRequestConfig): AxiosPromise {
+function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
+  throwIfCancellationRequested(config)
   processConfig(config)
   return xhr(config).then(res => {
     return transformResponseData(res)
@@ -29,14 +30,14 @@ function transformUrl(config: AxiosRequestConfig): string {
   return buildUrl(url!, params)
 }
 
-function transformRequestData(config: AxiosRequestConfig): any {
-  return transformRequest(config.data)
-}
+// function transformRequestData(config: AxiosRequestConfig): any {
+//   return transformRequest(config.data)
+// }
 
-function transformHeaders(config: AxiosRequestConfig): any {
-  const { headers = {}, data } = config
-  return processHeaders(headers, data)
-}
+// function transformHeaders(config: AxiosRequestConfig): any {
+//   const { headers = {}, data } = config
+//   return processHeaders(headers, data)
+// }
 
 function mergeDefaultTransform(config: AxiosRequestConfig): void {
   let { transformRequest: newTransformRequest, transformResponse: newTransformResponse } = config
@@ -74,4 +75,10 @@ function transformResponseData(res: AxiosResponse): AxiosResponse {
   res.data = transform(res.data, res.headers, res.config.transformResponse)
   return res
 }
-export default axios
+
+function throwIfCancellationRequested(config: AxiosRequestConfig): void {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested()
+  }
+}
+export default dispatchRequest

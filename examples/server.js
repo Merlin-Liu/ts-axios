@@ -127,6 +127,15 @@ router.post('/config/post', function(req, res) {
   })
 })
 
+// cancel
+router.get('/cancel/get', function (req, res) {
+  res.json('data-')
+})
+router.get('/cancel/post', function (req, res) {
+  res.json('data-')
+})
+
+
 app.use(router)
 
 const port = process.env.PORT || 8081

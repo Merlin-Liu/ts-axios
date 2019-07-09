@@ -30,6 +30,9 @@ export interface AxiosInstence extends Axios {
 
 export interface AxiosStatic extends AxiosInstence {
   create(config?: AxiosRequestConfig): AxiosInstence
+  Cancel: CancelStatic
+  CancelToken: CancelTokenStatic
+  isCancel: (vlaue: any) => boolean
 }
 
 export interface AxiosRequestConfig {
@@ -42,6 +45,7 @@ export interface AxiosRequestConfig {
   timeout?: number
   transformRequest?: AxiosTransFormer | AxiosTransFormer[]
   transformResponse?: AxiosTransFormer | AxiosTransFormer[]
+  cancelToken?: CancelToken
   [propName: string]: any
 }
 
@@ -96,4 +100,37 @@ export interface RejectedFn {
 
 export interface AxiosTransFormer {
   (data: any, header?: any): any
+}
+
+export interface Cancel {
+  message?: string
+}
+
+export interface CancelStatic {
+  new (message?: string): Cancel
+}
+
+export interface CancelToken {
+  promise: Promise<Cancel>
+  reason?: Cancel
+
+  throwIfRequested(): void
+}
+
+export interface Canceler {
+  (message?: string): void
+}
+
+export interface CancelExecutor {
+  (cancel: Canceler): void
+}
+
+export interface CancelTokenSource {
+  token: CancelToken
+  cancel: Canceler
+}
+
+export interface CancelTokenStatic {
+  new (executor: CancelExecutor): CancelToken
+  source(): CancelTokenSource
 }
