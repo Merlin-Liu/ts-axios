@@ -29,11 +29,13 @@
 // })
 
 
+const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
+const multipart = require('connect-multiparty')
 const WebpackConfig = require('./webpack.config')
 const router = express.Router()
 
@@ -47,16 +49,16 @@ app.use(webpackDevMiddleware(compiler, {
     chunks: false
   }
 }))
-
 app.use(webpackHotMiddleware(compiler))
-
 app.use(express.static(__dirname, {
   setHeaders (res) {
     res.cookie('XSRF-TOKEN-D', '1234abc')
   }
 }))
 app.use(express.static(__dirname))
-
+app.use(multipart({
+  uploadDir: path.resolve(__dirname, 'upload-file')
+}))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
@@ -149,6 +151,12 @@ router.get('/more/get', function (req, res) {
 router.get('/xsrf/get', function (req, res) {
   const token = req.get("X-XSRF-TOKEN-D")
   res.json({token})
+})
+
+// progress
+router.post('/more/upload', function(req, res) {
+  console.log(req.files)
+  res.json({data: req.files})
 })
 
 app.use(router)
