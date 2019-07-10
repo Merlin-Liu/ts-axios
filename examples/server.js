@@ -131,8 +131,13 @@ router.post('/config/post', function(req, res) {
 router.get('/cancel/get', function (req, res) {
   res.json('data-')
 })
-router.get('/cancel/post', function (req, res) {
+router.post('/cancel/post', function (req, res) {
   res.json('data-')
+})
+
+// more
+router.get('/more/get', function (req, res) {
+  res.json(req.cookies)
 })
 
 
