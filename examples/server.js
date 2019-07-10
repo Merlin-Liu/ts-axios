@@ -50,6 +50,11 @@ app.use(webpackDevMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler))
 
+app.use(express.static(__dirname, {
+  setHeaders (res) {
+    res.cookie('XSRF-TOKEN-D', '1234abc')
+  }
+}))
 app.use(express.static(__dirname))
 
 app.use(bodyParser.json())
@@ -140,6 +145,11 @@ router.get('/more/get', function (req, res) {
   res.json(req.cookies)
 })
 
+// xstf
+router.get('/xsrf/get', function (req, res) {
+  const token = req.get("X-XSRF-TOKEN-D")
+  res.json({token})
+})
 
 app.use(router)
 
