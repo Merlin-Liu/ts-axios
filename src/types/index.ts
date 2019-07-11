@@ -51,6 +51,7 @@ export interface AxiosRequestConfig {
   xsrfHeaderName?: string
   onDownLoadProgress?: (e: ProgressEvent) => void
   onUploadProgress?: (e: ProgressEvent) => void
+  auth?: AuthStaticCrendtials
   [propName: string]: any
 }
 
@@ -138,4 +139,9 @@ export interface CancelTokenSource {
 export interface CancelTokenStatic {
   new (executor: CancelExecutor): CancelToken
   source(): CancelTokenSource
+}
+
+export interface AuthStaticCrendtials {
+  username: string
+  password: string
 }

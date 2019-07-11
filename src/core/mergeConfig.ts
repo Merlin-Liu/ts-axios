@@ -27,7 +27,7 @@ function deepMergeStart(oldVal: any, newVal: any): any {
     return oldVal
   }
 }
-;['header'].forEach(key => {
+;['header', 'auth'].forEach(key => {
   starts[key] = deepMergeStart
 })
 
