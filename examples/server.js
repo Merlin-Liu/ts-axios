@@ -160,7 +160,7 @@ router.post('/more/upload', function(req, res) {
   res.json({data: req.files})
 })
 
-// auto
+// auth
 router.post('/auth/post', function(req, res) {
   const auth = req.headers.authorization
   const [type, credentials] = auth.split(' ')
@@ -171,6 +171,12 @@ router.post('/auth/post', function(req, res) {
   } else {
     res.end('UnAuthorization')
   }
+})
+
+// custom validate status
+router.get('/customStatus/304', function(req, res) {
+  res.status(304)
+  res.end()
 })
 
 app.use(router)
