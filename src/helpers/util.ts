@@ -16,6 +16,10 @@ export function isFormData(val: any): boolean {
   return val !== undefined && val instanceof FormData
 }
 
+export function isURLSearchParams(val: any): boolean {
+  return val !== undefined && val instanceof URLSearchParams
+}
+
 export function extend<T, U>(to: T, from: U): T & U {
   for (const key in from) {
     ;(to as T & U)[key] = from[key] as any

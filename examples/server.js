@@ -179,6 +179,11 @@ router.get('/customStatus/304', function(req, res) {
   res.end()
 })
 
+// custom param serializer
+router.get('/customParamSerializer/get', function (req, res) {
+  res.json({a: 11111})
+})
+
 app.use(router)
 
 const port = process.env.PORT || 8081
