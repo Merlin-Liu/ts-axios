@@ -54,6 +54,7 @@ export interface AxiosRequestConfig {
   auth?: AuthStaticCrendtials
   validateStatus?: (status: number) => boolean
   paramsSerializer?: (params: any) => string
+  baseUrl?: string
   [propName: string]: any
 }
 
