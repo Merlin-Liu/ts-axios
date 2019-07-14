@@ -1,3 +1,5 @@
+import { promises } from 'fs'
+
 export interface Axios {
   defaults: AxiosRequestConfig
   interceptors: {
@@ -20,6 +22,12 @@ export interface Axios {
   put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
 
   patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+
+  getUri(config?: AxiosRequestConfig): string
+}
+
+export interface AxiosClassStatic {
+  new (config: AxiosRequestConfig): Axios
 }
 
 export interface AxiosInstence extends Axios {
@@ -33,6 +41,9 @@ export interface AxiosStatic extends AxiosInstence {
   Cancel: CancelStatic
   CancelToken: CancelTokenStatic
   isCancel: (vlaue: any) => boolean
+  all<T>(promises: Array<T | Promise<T>>): Promise<T[]>
+  spread<T, R>(callback: (...args: T[]) => R): (arr: T[]) => R
+  Axios: AxiosClassStatic
 }
 
 export interface AxiosRequestConfig {

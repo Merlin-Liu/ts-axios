@@ -184,6 +184,14 @@ router.get('/customParamSerializer/get', function (req, res) {
   res.json({a: 11111})
 })
 
+// other funtion
+router.get('/otherFunction/A', function (req, res) {
+  res.json({a: 11111})
+})
+router.get('/otherFunction/B', function (req, res) {
+  res.json({b: 22222})
+})
+
 app.use(router)
 
 const port = process.env.PORT || 8081
