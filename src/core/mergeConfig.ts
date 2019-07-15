@@ -16,15 +16,15 @@ function fromVal2Start(val1: any, val2: any): any {
   starts[key] = fromVal2Start
 })
 
-function deepMergeStart(oldVal: any, newVal: any): any {
-  if (isPlainObject(newVal)) {
-    return deepMerge(oldVal, newVal)
-  } else if (typeof newVal !== 'undefined') {
-    return newVal
-  } else if (isPlainObject(oldVal)) {
-    return deepMerge(oldVal)
-  } else if (typeof oldVal !== 'undefined') {
-    return oldVal
+function deepMergeStart(val1: any, val2: any): any {
+  if (isPlainObject(val2)) {
+    return deepMerge(val1, val2)
+  } else if (typeof val2 !== 'undefined') {
+    return val2
+  } else if (isPlainObject(val1)) {
+    return deepMerge(val1)
+  } else {
+    return val1
   }
 }
 ;['header', 'auth'].forEach(key => {
