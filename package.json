@@ -1,5 +1,5 @@
 {
-  "name": "ts-axios-new",
+  "name": "ts-axios-liu",
   "version": "0.0.1",
   "description": "",
   "keywords": [],
@@ -9,10 +9,10 @@
   "files": [
     "dist"
   ],
-  "author": "ustbhuangyi <280309453@qq.com>",
+  "author": "liuguangfu <is_liuguangfu@163.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ustbhuangyi/ts-axios"
+    "url": "https://github.com/Merlin-Liu/ts-axios"
   },
   "license": "MIT",
   "engines": {
