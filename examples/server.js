@@ -156,14 +156,14 @@ router.get('/xsrf/get', function (req, res) {
 
 // progress
 router.post('/more/upload', function(req, res) {
-  // console.log(req.file)
-  // res.json({data: req.file})
+  console.log(req.file)
+  res.json({data: req.file})
 
   // 小程序上传图片demo接口
-  let file = req.body.file
-  file = file.replace('127.0.0.1', '172.24.198.253') || file
-  console.log(file)
-  res.json(file)
+  // let file = req.body.file
+  // file = file.replace('127.0.0.1', '172.24.198.253') || file
+  // console.log(file)
+  // res.json(file)
 })
 
 // auth
